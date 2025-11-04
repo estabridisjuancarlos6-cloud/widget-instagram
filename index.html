@@ -1,179 +1,200 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Feed de Instagram</title>
-  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet" />
-  <style>
-    @font-face {
-      font-family: 'BlissLight';
-      src: url('font/BlissLight Regular.ttf') format('truetype');
-      font-weight: normal;
-      font-style: normal;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feed de Instagram</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet" />
+    <style>
+        @font-face {
+            font-family: 'BlissLight';
+            src: url('font/BlissLight Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
 
-    * {
-      box-sizing: border-box;
-    }
+        * {
+            box-sizing: border-box;
+        }
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      font-family: "BlissLight", sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: white;
-    }
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: "BlissLight", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+        }
 
-    .feed-container {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      border-radius: 1vw;
-      width: 100%;
-      height: 100%;
-      padding: 3%;
-      gap: 3%;
-      transition: all 0.5s ease-in-out;
-    }
+        .feed-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 1vw;
+            width: 100%;
+            height: 100%;
+            padding: 3%;
+            gap: 3%;
+            transition: all 0.5s ease-in-out;
+        }
 
-    .feed-text {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+        .feed-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
-    .feed-text p {
-      color: #180a3a;
-      font-size: clamp(12px, 1.5vw, 22px);
-      font-weight: bold;
-      margin-bottom: 0.4vw;
-    }
+        .feed-text p {
+            color: #180a3a;
+            font-size: clamp(12px, 1.5vw, 22px);
+            font-weight: bold;
+            margin-bottom: 0.4vw;
+        }
 
-    .img-ig {
-      width: 35%;
-      max-width: 180px;
-      height: auto;
-      margin-bottom: 0.5vw;
-    }
+        .img-ig {
+            width: 35%;
+            max-width: 180px;
+            height: auto;
+            margin-bottom: 0.5vw;
+        }
 
-    .caption {
-      border-radius: 0.6vw;
-      padding: 0.8vw;
-      font-size: clamp(12px, 1.2vw, 18px);
-      color: #333;
-      max-height: 35%;
-      overflow: hidden;
-    }
+        .caption {
+            border-radius: 0.6vw;
+            padding: 0.8vw;
+            font-size: clamp(12px, 1.2vw, 18px);
+            color: #333;
+            max-height: 35%;
+            overflow: hidden;
+        }
 
-    .feed-image {
-      flex: 0.9;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 2%;
-    }
+        .feed-image {
+            flex: 0.9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2%;
+        }
 
-    .feed-image img {
-      width: 100%;
-      height: auto;
-      max-height: 65vh;
-      border-radius: 1vw;
-      object-fit: cover;
-    }
+        .feed-image img {
+            width: 100%;
+            height: auto;
+            max-height: 65vh;
+            border-radius: 1vw;
+            object-fit: cover;
+        }
 
-    .fade {
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
+        .fade {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
 
-    .visible {
-      opacity: 1;
-    }
+        .visible {
+            opacity: 1;
+        }
 
-    @media (max-aspect-ratio: 1/1) {
-      /* 📱 Para pantallas verticales */
-      .feed-container {
-        flex-direction: column;
-        text-align: center;
-      }
+        @media (max-aspect-ratio: 1/1) {
 
-      .img-ig {
-        width: 45%;
-        max-width: 150px;
-      }
+            /* 📱 Para pantallas verticales */
+            .feed-container {
+                flex-direction: column;
+                text-align: center;
+            }
 
-      .feed-image img {
-        width: 85%;
-        max-width: 350px;
-        max-height: 45vh;
-      }
-    }
-  </style>
+            .img-ig {
+                width: 45%;
+                max-width: 150px;
+            }
+
+            .feed-image img {
+                width: 85%;
+                max-width: 350px;
+                max-height: 45vh;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <div id="feed" class="feed-container visible">
-    <div class="feed-text">
-      <p>Conoce qué novedades tenemos en:</p>
-      <img class="img-ig" src="img/ig_text.png" alt="Instagram" />
-      <div class="caption">Cargando publicación...</div>
+    <div id="feed" class="feed-container visible">
+        <div class="feed-text">
+            <p>Conoce qué novedades tenemos en:</p>
+            <img class="img-ig" src="img/ig_text.png" alt="Instagram" />
+            <div class="caption">Cargando publicación...</div>
+        </div>
+        <div class="feed-image">
+            <img src="" alt="Post de Instagram" />
+        </div>
     </div>
-    <div class="feed-image">
-      <img src="" alt="Post de Instagram" />
-    </div>
-  </div>
 
-  <script>
-    const FEED_URL = "https://rss.app/feeds/v1.1/nJiyMf3Sa0hPCz2z.json";
-    let currentIndex = 0;
-    let posts = [];
+    <script>
+        function ajustarEscala() {
+            const baseWidth = 1920; // ancho base de tu diseño original
+            const baseHeight = 1080; // alto base
+            const scaleX = window.innerWidth / baseWidth;
+            const scaleY = window.innerHeight / baseHeight;
+            const scale = Math.min(scaleX, scaleY);
 
-    async function cargarFeed() {
-      try {
-        const res = await fetch(FEED_URL);
-        const data = await res.json();
-        posts = data.items || [];
-        mostrarPost();
-        setInterval(mostrarPost, 15000);
-      } catch (e) {
-        console.error("Error al cargar el feed:", e);
-      }
-    }
+            const container = document.body;
+            container.style.transform = `scale(${scale})`;
+            container.style.transformOrigin = "top left";
+            container.style.width = baseWidth + "px";
+            container.style.height = baseHeight + "px";
+        }
 
-    function mostrarPost() {
-      if (posts.length === 0) return;
-      const post = posts[currentIndex];
-      const captionElement = document.querySelector(".caption");
-      const imgElement = document.querySelector(".feed-image img");
+        window.addEventListener("resize", ajustarEscala);
+        window.addEventListener("load", ajustarEscala);
 
-      const tempDiv = document.createElement("div");
-      tempDiv.innerHTML = post.content_html;
-      const text = tempDiv.innerText || "";
-      const imgTag = tempDiv.querySelector("img");
-      const imgSrc = imgTag ? imgTag.src : "";
+        const FEED_URL = "https://rss.app/feeds/v1.1/nJiyMf3Sa0hPCz2z.json";
+        let currentIndex = 0;
+        let posts = [];
 
-      const feedContainer = document.getElementById("feed");
-      feedContainer.classList.remove("visible");
-      feedContainer.classList.add("fade");
+        async function cargarFeed() {
+            try {
+                const res = await fetch(FEED_URL);
+                const data = await res.json();
+                posts = data.items || [];
+                mostrarPost();
+                setInterval(mostrarPost, 15000);
+            } catch (e) {
+                console.error("Error al cargar el feed:", e);
+            }
+        }
 
-      setTimeout(() => {
-        captionElement.innerText = text.trim().substring(0, 400);
-        imgElement.src = `https://images.weserv.nl/?url=${encodeURIComponent(imgSrc)}`;
-        feedContainer.classList.remove("fade");
-        feedContainer.classList.add("visible");
-      }, 800);
+        function mostrarPost() {
+            if (posts.length === 0) return;
+            const post = posts[currentIndex];
+            const captionElement = document.querySelector(".caption");
+            const imgElement = document.querySelector(".feed-image img");
 
-      currentIndex = (currentIndex + 1) % posts.length;
-    }
+            const tempDiv = document.createElement("div");
+            tempDiv.innerHTML = post.content_html;
+            const text = tempDiv.innerText || "";
+            const imgTag = tempDiv.querySelector("img");
+            const imgSrc = imgTag ? imgTag.src : "";
 
-    cargarFeed();
-  </script>
+            const feedContainer = document.getElementById("feed");
+            feedContainer.classList.remove("visible");
+            feedContainer.classList.add("fade");
+
+            setTimeout(() => {
+                captionElement.innerText = text.trim().substring(0, 400);
+                imgElement.src = `https://images.weserv.nl/?url=${encodeURIComponent(imgSrc)}`;
+                feedContainer.classList.remove("fade");
+                feedContainer.classList.add("visible");
+            }, 800);
+
+            currentIndex = (currentIndex + 1) % posts.length;
+        }
+
+        cargarFeed();
+    </script>
 </body>
+
 </html>
