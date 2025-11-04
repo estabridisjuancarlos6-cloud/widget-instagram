@@ -134,23 +134,6 @@
     </div>
 
     <script>
-        function ajustarEscala() {
-            const baseWidth = 1920; // ancho base de tu diseño original
-            const baseHeight = 1080; // alto base
-            const scaleX = window.innerWidth / baseWidth;
-            const scaleY = window.innerHeight / baseHeight;
-            const scale = Math.min(scaleX, scaleY);
-
-            const container = document.body;
-            container.style.transform = `scale(${scale})`;
-            container.style.transformOrigin = "top left";
-            container.style.width = baseWidth + "px";
-            container.style.height = baseHeight + "px";
-        }
-
-        window.addEventListener("resize", ajustarEscala);
-        window.addEventListener("load", ajustarEscala);
-
         const FEED_URL = "https://rss.app/feeds/v1.1/nJiyMf3Sa0hPCz2z.json";
         let currentIndex = 0;
         let posts = [];
