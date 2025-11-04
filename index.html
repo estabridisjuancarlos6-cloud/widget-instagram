@@ -14,22 +14,19 @@
       font-style: normal;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
     html,
     body {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
-      font-family: "BlissLight", sans-serif;
       overflow: hidden;
+      font-family: "BlissLight", sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #fff;
+      box-sizing: border-box;
+      transform-origin: top left;
     }
 
     .feed-container {
@@ -37,10 +34,13 @@
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
+      border-radius: 1vw;
       width: 100%;
       height: 100%;
-      padding: 2%;
-      gap: 2%;
+      padding: 3%;
+      gap: 3%;
+      transition: all 0.5s ease-in-out;
+      box-sizing: border-box;
     }
 
     .feed-text {
@@ -48,31 +48,29 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      min-width: 35%;
     }
 
     .feed-text p {
       color: #180a3a;
-      font-size: clamp(10px, 1.4vw, 20px);
+      font-size: 1.2vw;
       font-weight: bold;
       margin-bottom: 0.4vw;
     }
 
     .img-ig {
       width: 35%;
-      max-width: 200px;
+      max-width: 290px;
       height: auto;
       margin-bottom: 0.5vw;
     }
 
     .caption {
       border-radius: 0.6vw;
-      padding: 0.6vw;
-      font-size: clamp(10px, 1.2vw, 18px);
+      padding: 0.8vw;
+      font-size: 1.2vw;
       color: #333;
       max-height: 35%;
       overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .feed-image {
@@ -80,22 +78,18 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 1%;
+      padding: 2%;
+      box-sizing: border-box;
     }
 
     .feed-image img {
       width: 100%;
-      max-width: 450px;
       height: auto;
+      max-height: 60vh;
       border-radius: 1vw;
       object-fit: cover;
       border: none;
       display: block;
-      transition: transform 0.4s ease;
-    }
-
-    .feed-image img:hover {
-      transform: scale(1.02);
     }
 
     .fade {
@@ -107,52 +101,23 @@
       opacity: 1;
     }
 
-    /* 📺 Adaptación a pantallas muy panorámicas (como layouts de 747×250) */
-    @media (max-aspect-ratio: 4/1) {
-      .feed-container {
-        flex-direction: row;
-        padding: 1%;
-        gap: 1%;
-      }
-
-      .feed-text {
-        flex: 1;
-      }
-
-      .feed-image img {
-        max-height: 100%;
-        max-width: 40%;
-        border-radius: 0.8vw;
-      }
-
-      .caption {
-        font-size: clamp(9px, 1vw, 14px);
-        max-height: 40%;
-      }
-
-      .feed-text p {
-        font-size: clamp(9px, 1vw, 14px);
-      }
-    }
-
-    /* 📱 Vertical o resoluciones pequeñas */
-    @media (orientation: portrait), (max-width: 600px) {
+    @media (orientation: portrait) {
       .feed-container {
         flex-direction: column;
-        padding: 5%;
         text-align: center;
+        padding: 5%;
       }
 
       .feed-text p {
-        font-size: clamp(12px, 3vw, 18px);
+        font-size: 2.5vw;
       }
 
       .caption {
-        font-size: clamp(11px, 2.5vw, 16px);
+        font-size: 2vw;
       }
 
       .img-ig {
-        width: 45%;
+        width: 40%;
       }
 
       .feed-image img {
@@ -160,6 +125,7 @@
         max-width: 300px;
         max-height: 45vh;
         border-radius: 3vw;
+        object-fit: cover;
       }
     }
   </style>
@@ -178,6 +144,20 @@
   </div>
 
   <script>
+    // 🔹 Escala automática según el tamaño real del frame (iframe en OnSign)
+    function ajustarEscala() {
+      const baseWidth = 1920;  // ancho de referencia del diseño original
+      const baseHeight = 1080; // alto de referencia
+      const scaleX = window.innerWidth / baseWidth;
+      const scaleY = window.innerHeight / baseHeight;
+      const scale = Math.min(scaleX, scaleY);
+      document.body.style.transform = `scale(${scale})`;
+    }
+
+    window.addEventListener("resize", ajustarEscala);
+    window.addEventListener("load", ajustarEscala);
+
+    // 🔹 Lógica del feed
     const FEED_URL = "https://rss.app/feeds/v1.1/nJiyMf3Sa0hPCz2z.json";
     let currentIndex = 0;
     let posts = [];
