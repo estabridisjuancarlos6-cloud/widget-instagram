@@ -2,203 +2,226 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Feed de Instagram</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet" />
-    <style>
-        @font-face {
-            font-family: 'BlissLight';
-            src: url('font/BlissLight Regular.ttf') format('truetype');
-            font-weight: normal;
-            font-style: normal;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feed de Instagram</title>
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet" />
+  <style>
+    @font-face {
+      font-family: 'BlissLight';
+      src: url('font/BlissLight Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+    }
 
-        html,
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            /*background-color: #f2f3f7;*/
-            font-family: "BlissLight", sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-sizing: border-box;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        .feed-container {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            /*background: rgb(227, 225, 233);*/
-            border-radius: 1vw;
-            box-shadow: 0 0.4vw 1vw rgba(0, 0, 0, 0.1);
-            width: 100%;
-            height: 100%;
-            padding: 3%;
-            gap: 3%;
-            transition: all 0.5s ease-in-out;
-            box-sizing: border-box;
-        }
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      font-family: "BlissLight", sans-serif;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #fff;
+    }
 
-        .feed-text {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+    .feed-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 100%;
+      padding: 2%;
+      gap: 2%;
+    }
 
-        .feed-text p {
-            color: #180a3a;
-            font-size: 1.2vw;
-            font-weight: bold;
-            margin-bottom: 0.4vw;
-        }
+    .feed-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 35%;
+    }
 
-        .img-ig {
-            width: 35%;
-            max-width: 290px;
-            height: auto;
-            margin-bottom: 0.5vw;
-        }
+    .feed-text p {
+      color: #180a3a;
+      font-size: clamp(10px, 1.4vw, 20px);
+      font-weight: bold;
+      margin-bottom: 0.4vw;
+    }
 
-        .caption {
-            border-radius: 0.6vw;
-            padding: 0.8vw;
-            font-size: 1.5vw;
-            color: #333;
-            max-height: 35%;
-            overflow: hidden;
-        }
+    .img-ig {
+      width: 35%;
+      max-width: 200px;
+      height: auto;
+      margin-bottom: 0.5vw;
+    }
 
-        /* 🖼 Contenedor e imagen ajustados */
-        .feed-image {
-            flex: 0.9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2%;
-            box-sizing: border-box;
-        }
+    .caption {
+      border-radius: 0.6vw;
+      padding: 0.6vw;
+      font-size: clamp(10px, 1.2vw, 18px);
+      color: #333;
+      max-height: 35%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-        .feed-image img {
-            width: 100%;
-            max-width: 500px;
-            max-height: 70vh;
-            height: auto;
-            border-radius: 1.2vw;
-            object-fit: cover;
-            /* llena sin deformar */
-            border: none;
-            display: block;
-            transition: transform 0.4s ease;
-        }
+    .feed-image {
+      flex: 0.9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1%;
+    }
 
-        .feed-image img:hover {
-            transform: scale(1.02);
-        }
+    .feed-image img {
+      width: 100%;
+      max-width: 450px;
+      height: auto;
+      border-radius: 1vw;
+      object-fit: cover;
+      border: none;
+      display: block;
+      transition: transform 0.4s ease;
+    }
 
-        .fade {
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
+    .feed-image img:hover {
+      transform: scale(1.02);
+    }
 
-        .visible {
-            opacity: 1;
-        }
+    .fade {
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
 
-        /* 📱 Adaptación a orientación vertical */
-        @media (orientation: portrait) {
-            .feed-container {
-                flex-direction: column;
-                text-align: center;
-                padding: 5%;
-            }
+    .visible {
+      opacity: 1;
+    }
 
-            .feed-text p {
-                font-size: 2.5vw;
-            }
+    /* 📺 Adaptación a pantallas muy panorámicas (como layouts de 747×250) */
+    @media (max-aspect-ratio: 4/1) {
+      .feed-container {
+        flex-direction: row;
+        padding: 1%;
+        gap: 1%;
+      }
 
-            .caption {
-                font-size: 2vw;
-            }
+      .feed-text {
+        flex: 1;
+      }
 
-            .img-ig {
-                width: 40%;
-            }
+      .feed-image img {
+        max-height: 100%;
+        max-width: 40%;
+        border-radius: 0.8vw;
+      }
 
-            .feed-image img {
-                width: 85%;
-                max-width: 300px;
-                max-height: 45vh;
-                border-radius: 3vw;
-                object-fit: cover;
-            }
-        }
-    </style>
+      .caption {
+        font-size: clamp(9px, 1vw, 14px);
+        max-height: 40%;
+      }
+
+      .feed-text p {
+        font-size: clamp(9px, 1vw, 14px);
+      }
+    }
+
+    /* 📱 Vertical o resoluciones pequeñas */
+    @media (orientation: portrait), (max-width: 600px) {
+      .feed-container {
+        flex-direction: column;
+        padding: 5%;
+        text-align: center;
+      }
+
+      .feed-text p {
+        font-size: clamp(12px, 3vw, 18px);
+      }
+
+      .caption {
+        font-size: clamp(11px, 2.5vw, 16px);
+      }
+
+      .img-ig {
+        width: 45%;
+      }
+
+      .feed-image img {
+        width: 85%;
+        max-width: 300px;
+        max-height: 45vh;
+        border-radius: 3vw;
+      }
+    }
+  </style>
 </head>
 
 <body>
-    <div id="feed" class="feed-container">
-        <div class="feed-text">
-            <p>Conoce qué novedades tenemos en:</p>
-            <img class="img-ig" src="img/ig_text.png" alt="Instagram" />
-            <div class="caption">Cargando publicación...</div>
-        </div>
-        <div class="feed-image">
-            <img src="" alt="Post de Instagram" />
-        </div>
+  <div id="feed" class="feed-container">
+    <div class="feed-text">
+      <p>Conoce qué novedades tenemos en:</p>
+      <img class="img-ig" src="img/ig_text.png" alt="Instagram" />
+      <div class="caption">Cargando publicación...</div>
     </div>
+    <div class="feed-image">
+      <img src="" alt="Post de Instagram" />
+    </div>
+  </div>
 
-    <script>
-        const FEED_URL = "https://rss.app/feeds/v1.1/nJiyMf3Sa0hPCz2z.json";
-        let currentIndex = 0;
-        let posts = [];
+  <script>
+    const FEED_URL = "https://rss.app/feeds/v1.1/nJiyMf3Sa0hPCz2z.json";
+    let currentIndex = 0;
+    let posts = [];
 
-        async function cargarFeed() {
-            try {
-                const res = await fetch(FEED_URL);
-                const data = await res.json();
-                posts = data.items || [];
-                mostrarPost();
-                setInterval(mostrarPost, 15000);
-            } catch (e) {
-                console.error("Error al cargar el feed:", e);
-            }
-        }
+    async function cargarFeed() {
+      try {
+        const res = await fetch(FEED_URL);
+        const data = await res.json();
+        posts = data.items || [];
+        mostrarPost();
+        setInterval(mostrarPost, 15000);
+      } catch (e) {
+        console.error("Error al cargar el feed:", e);
+      }
+    }
 
-        function mostrarPost() {
-            if (posts.length === 0) return;
-            const post = posts[currentIndex];
-            const captionElement = document.querySelector(".caption");
-            const imgElement = document.querySelector(".feed-image img");
+    function mostrarPost() {
+      if (posts.length === 0) return;
+      const post = posts[currentIndex];
+      const captionElement = document.querySelector(".caption");
+      const imgElement = document.querySelector(".feed-image img");
 
-            const tempDiv = document.createElement("div");
-            tempDiv.innerHTML = post.content_html;
-            const text = tempDiv.innerText || "";
-            const imgTag = tempDiv.querySelector("img");
-            const imgSrc = imgTag ? imgTag.src : "";
+      const tempDiv = document.createElement("div");
+      tempDiv.innerHTML = post.content_html;
+      const text = tempDiv.innerText || "";
+      const imgTag = tempDiv.querySelector("img");
+      const imgSrc = imgTag ? imgTag.src : "";
 
-            const feedContainer = document.getElementById("feed");
-            feedContainer.classList.remove("visible");
-            feedContainer.classList.add("fade");
+      const feedContainer = document.getElementById("feed");
+      feedContainer.classList.remove("visible");
+      feedContainer.classList.add("fade");
 
-            setTimeout(() => {
-                captionElement.innerText = text.trim().substring(0, 400);
-                imgElement.src = `https://images.weserv.nl/?url=${encodeURIComponent(imgSrc)}`;
-                feedContainer.classList.remove("fade");
-                feedContainer.classList.add("visible");
-            }, 800);
+      setTimeout(() => {
+        captionElement.innerText = text.trim().substring(0, 400);
+        imgElement.src = `https://images.weserv.nl/?url=${encodeURIComponent(imgSrc)}`;
+        feedContainer.classList.remove("fade");
+        feedContainer.classList.add("visible");
+      }, 800);
 
-            currentIndex = (currentIndex + 1) % posts.length;
-        }
+      currentIndex = (currentIndex + 1) % posts.length;
+    }
 
-        cargarFeed();
-    </script>
+    cargarFeed();
+  </script>
 </body>
 
 </html>
