@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -14,18 +13,20 @@
       font-style: normal;
     }
 
-    html,
-    body {
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
       margin: 0;
       padding: 0;
       width: 100%;
       height: 100%;
-      overflow: hidden;
       font-family: "BlissLight", sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      box-sizing: border-box;
+      background: white;
     }
 
     .feed-container {
@@ -38,7 +39,7 @@
       height: 100%;
       padding: 3%;
       gap: 3%;
-      box-sizing: border-box;
+      transition: all 0.5s ease-in-out;
     }
 
     .feed-text {
@@ -50,14 +51,14 @@
 
     .feed-text p {
       color: #180a3a;
-      font-size: 1.1vw;
+      font-size: clamp(12px, 1.5vw, 22px);
       font-weight: bold;
       margin-bottom: 0.4vw;
     }
 
     .img-ig {
       width: 35%;
-      max-width: 220px;
+      max-width: 180px;
       height: auto;
       margin-bottom: 0.5vw;
     }
@@ -65,11 +66,10 @@
     .caption {
       border-radius: 0.6vw;
       padding: 0.8vw;
-      font-size: 1vw;
+      font-size: clamp(12px, 1.2vw, 18px);
       color: #333;
-      max-height: 40%;
+      max-height: 35%;
       overflow: hidden;
-      line-height: 1.2em;
     }
 
     .feed-image {
@@ -78,16 +78,14 @@
       justify-content: center;
       align-items: center;
       padding: 2%;
-      box-sizing: border-box;
     }
 
     .feed-image img {
       width: 100%;
       height: auto;
-      max-height: 70%;
+      max-height: 65vh;
       border-radius: 1vw;
       object-fit: cover;
-      display: block;
     }
 
     .fade {
@@ -99,30 +97,22 @@
       opacity: 1;
     }
 
-    @media (orientation: portrait) {
+    @media (max-aspect-ratio: 1/1) {
+      /* 📱 Para pantallas verticales */
       .feed-container {
         flex-direction: column;
         text-align: center;
-        padding: 5%;
-      }
-
-      .feed-text p {
-        font-size: 2.5vw;
-      }
-
-      .caption {
-        font-size: 2vw;
       }
 
       .img-ig {
-        width: 40%;
+        width: 45%;
+        max-width: 150px;
       }
 
       .feed-image img {
         width: 85%;
-        max-width: 300px;
+        max-width: 350px;
         max-height: 45vh;
-        border-radius: 3vw;
       }
     }
   </style>
@@ -141,9 +131,6 @@
   </div>
 
   <script>
-    // ✅ Ya no usamos escala fija basada en 1920x1080
-    // OnSign ajusta el iframe automáticamente según el layout.
-
     const FEED_URL = "https://rss.app/feeds/v1.1/nJiyMf3Sa0hPCz2z.json";
     let currentIndex = 0;
     let posts = [];
@@ -189,5 +176,4 @@
     cargarFeed();
   </script>
 </body>
-
 </html>
