@@ -26,7 +26,6 @@
       justify-content: center;
       align-items: center;
       box-sizing: border-box;
-      transform-origin: top left;
     }
 
     .feed-container {
@@ -39,7 +38,6 @@
       height: 100%;
       padding: 3%;
       gap: 3%;
-      transition: all 0.5s ease-in-out;
       box-sizing: border-box;
     }
 
@@ -52,14 +50,14 @@
 
     .feed-text p {
       color: #180a3a;
-      font-size: 1.2vw;
+      font-size: 1.1vw;
       font-weight: bold;
       margin-bottom: 0.4vw;
     }
 
     .img-ig {
       width: 35%;
-      max-width: 290px;
+      max-width: 220px;
       height: auto;
       margin-bottom: 0.5vw;
     }
@@ -67,10 +65,11 @@
     .caption {
       border-radius: 0.6vw;
       padding: 0.8vw;
-      font-size: 1.2vw;
+      font-size: 1vw;
       color: #333;
-      max-height: 35%;
+      max-height: 40%;
       overflow: hidden;
+      line-height: 1.2em;
     }
 
     .feed-image {
@@ -85,10 +84,9 @@
     .feed-image img {
       width: 100%;
       height: auto;
-      max-height: 60vh;
+      max-height: 70%;
       border-radius: 1vw;
       object-fit: cover;
-      border: none;
       display: block;
     }
 
@@ -125,14 +123,13 @@
         max-width: 300px;
         max-height: 45vh;
         border-radius: 3vw;
-        object-fit: cover;
       }
     }
   </style>
 </head>
 
 <body>
-  <div id="feed" class="feed-container">
+  <div id="feed" class="feed-container visible">
     <div class="feed-text">
       <p>Conoce qué novedades tenemos en:</p>
       <img class="img-ig" src="img/ig_text.png" alt="Instagram" />
@@ -144,20 +141,9 @@
   </div>
 
   <script>
-    // 🔹 Escala automática según el tamaño real del frame (iframe en OnSign)
-    function ajustarEscala() {
-      const baseWidth = 1920;  // ancho de referencia del diseño original
-      const baseHeight = 1080; // alto de referencia
-      const scaleX = window.innerWidth / baseWidth;
-      const scaleY = window.innerHeight / baseHeight;
-      const scale = Math.min(scaleX, scaleY);
-      document.body.style.transform = `scale(${scale})`;
-    }
+    // ✅ Ya no usamos escala fija basada en 1920x1080
+    // OnSign ajusta el iframe automáticamente según el layout.
 
-    window.addEventListener("resize", ajustarEscala);
-    window.addEventListener("load", ajustarEscala);
-
-    // 🔹 Lógica del feed
     const FEED_URL = "https://rss.app/feeds/v1.1/nJiyMf3Sa0hPCz2z.json";
     let currentIndex = 0;
     let posts = [];
