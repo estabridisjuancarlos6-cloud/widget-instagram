@@ -33,7 +33,7 @@
         .feed-container {
             display: flex;
             flex-direction: row;
-            align-items: center;
+            align-items: flex-start; /* 👈 antes estaba center */
             justify-content: space-between;
             border-radius: 1vw;
             width: 100%;
@@ -47,21 +47,24 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            align-items: flex-start; /* 👈 mantiene todo pegado arriba */
+            justify-content: flex-start; /* 👈 título y logo siempre arriba */
+            height: 100%;
+            margin-top: 4%;
         }
 
         .feed-text p {
             color: #180a3a;
             font-size: clamp(12px, 1.5vw, 22px);
             font-weight: bold;
-            margin-bottom: 0.4vw;
+            margin: 0 0 0.4vw 0;
         }
 
         .img-ig {
             width: 35%;
             max-width: 180px;
             height: auto;
-            margin-bottom: 0.5vw;
+            margin-bottom: 1vw;
         }
 
         .caption {
@@ -69,22 +72,24 @@
             padding: 0.8vw;
             font-size: clamp(12px, 1.2vw, 18px);
             color: #333;
-            max-height: 35%;
             overflow: hidden;
+            flex-grow: 1; /* 👈 se expande solo este bloque */
+            display: flex;
+            align-items: flex-start;
         }
 
         .feed-image {
             flex: 0.9;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* 👈 alinea imagen al mismo nivel del título */
             padding: 2%;
         }
 
         .feed-image img {
             width: 100%;
             height: auto;
-            max-height: 65vh;
+            max-height: 77vh;
             border-radius: 1vw;
             object-fit: cover;
         }
@@ -99,16 +104,24 @@
         }
 
         @media (max-aspect-ratio: 1/1) {
-
             /* 📱 Para pantallas verticales */
             .feed-container {
                 flex-direction: column;
+                align-items: center;
                 text-align: center;
+            }
+
+            .feed-text {
+                align-items: center;
             }
 
             .img-ig {
                 width: 45%;
                 max-width: 150px;
+            }
+
+            .feed-image {
+                align-items: center;
             }
 
             .feed-image img {
@@ -180,5 +193,3 @@
 </body>
 
 </html>
-
-
