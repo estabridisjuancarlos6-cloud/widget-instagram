@@ -34,7 +34,8 @@
         .feed-container {
             display: flex;
             flex-direction: row;
-            align-items: flex-start; /* 👈 antes estaba center */
+            align-items: flex-start;
+            /* 👈 antes estaba center */
             justify-content: space-between;
             border-radius: 1vw;
             width: 100%;
@@ -48,8 +49,10 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* 👈 mantiene todo pegado arriba */
-            justify-content: flex-start; /* 👈 título y logo siempre arriba */
+            align-items: flex-start;
+            /* 👈 mantiene todo pegado arriba */
+            justify-content: flex-start;
+            /* 👈 título y logo siempre arriba */
             height: 100%;
             margin-top: 4%;
         }
@@ -74,7 +77,8 @@
             font-size: clamp(14px, 1.5vw, 22px);
             color: #333;
             overflow: hidden;
-            flex-grow: 1; /* 👈 se expande solo este bloque */
+            flex-grow: 1;
+            /* 👈 se expande solo este bloque */
             display: flex;
             align-items: flex-start;
             margin-top: 2%;
@@ -84,7 +88,8 @@
             flex: 0.9;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* 👈 alinea imagen al mismo nivel del título */
+            align-items: flex-start;
+            /* 👈 alinea imagen al mismo nivel del título */
             padding: 2%;
         }
 
@@ -106,6 +111,7 @@
         }
 
         @media (max-aspect-ratio: 1/1) {
+
             /* 📱 Para pantallas verticales */
             .feed-container {
                 flex-direction: column;
@@ -166,13 +172,21 @@
 
         function mostrarPost() {
             if (posts.length === 0) return;
+
             const post = posts[currentIndex];
             const captionElement = document.querySelector(".caption");
             const imgElement = document.querySelector(".feed-image img");
 
             const tempDiv = document.createElement("div");
             tempDiv.innerHTML = post.content_html;
-            const text = tempDiv.innerText || "";
+
+            // ✅ PRIMER PÁRRAFO REAL (RSS APP FRIENDLY)
+            const fullText = tempDiv.innerText || "";
+            const text = fullText
+                .split(/\n\s*\n/)
+                .shift()
+                .trim();
+
             const imgTag = tempDiv.querySelector("img");
             const imgSrc = imgTag ? imgTag.src : "";
 
@@ -181,8 +195,10 @@
             feedContainer.classList.add("fade");
 
             setTimeout(() => {
-                captionElement.innerText = text.trim().substring(0, 400);
-                imgElement.src = `https://images.weserv.nl/?url=${encodeURIComponent(imgSrc)}`;
+                captionElement.innerText = text;
+                imgElement.src = imgSrc
+                    ? `https://images.weserv.nl/?url=${encodeURIComponent(imgSrc)}`
+                    : "";
                 feedContainer.classList.remove("fade");
                 feedContainer.classList.add("visible");
             }, 800);
@@ -195,4 +211,3 @@
 </body>
 
 </html>
-
