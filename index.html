@@ -4,6 +4,31 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self';
+        script-src
+          'self'
+          'sha256-sK+RM5Zbmju2/EHmuA6XxaEcNmmLFg+p/rtef4J68Dg=';
+        style-src
+          'self'
+          'unsafe-inline'
+          https://fonts.googleapis.com;
+        img-src
+          'self'
+          https://images.weserv.nl
+          data:;
+        connect-src
+          https://rss.app;
+        font-src
+          'self'
+          https://fonts.gstatic.com;
+        object-src 'none';
+        frame-src 'none';
+        base-uri 'self';
+      ">
+
+
     <title>Feed de Instagram</title>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet" />
     <style>
@@ -211,4 +236,3 @@
 </body>
 
 </html>
-
