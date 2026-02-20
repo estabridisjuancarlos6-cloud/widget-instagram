@@ -4,29 +4,17 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy"
-      content="
-        default-src 'self';
-        script-src
-          'self'
-          'sha256-sK+RM5Zbmju2/EHmuA6XxaEcNmmLFg+p/rtef4J68Dg=';
-        style-src
-          'self'
-          'unsafe-inline'
-          https://fonts.googleapis.com;
-        img-src
-          'self'
-          https://images.weserv.nl
-          data:;
-        connect-src
-          https://rss.app;
-        font-src
-          'self'
-          https://fonts.gstatic.com;
-        object-src 'none';
-        frame-src 'none';
-        base-uri 'self';
-      ">
+    <meta http-equiv="Content-Security-Policy" content="
+default-src 'self';
+script-src 'self';
+style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
+img-src 'self' https://images.weserv.nl data:;
+connect-src https://rss.app;
+font-src 'self' https://fonts.gstatic.com;
+object-src 'none';
+frame-src 'none';
+base-uri 'self';
+">
 
 
     <title>Feed de Instagram</title>
@@ -178,61 +166,7 @@
         </div>
     </div>
 
-    <script>
-        const FEED_URL = "https://rss.app/feeds/v1.1/PAdJ6lPNrcC4JDYP.json";
-        let currentIndex = 0;
-        let posts = [];
-
-        async function cargarFeed() {
-            try {
-                const res = await fetch(FEED_URL);
-                const data = await res.json();
-                posts = data.items || [];
-                mostrarPost();
-                setInterval(mostrarPost, 15000);
-            } catch (e) {
-                console.error("Error al cargar el feed:", e);
-            }
-        }
-
-        function mostrarPost() {
-            if (posts.length === 0) return;
-
-            const post = posts[currentIndex];
-            const captionElement = document.querySelector(".caption");
-            const imgElement = document.querySelector(".feed-image img");
-
-            const tempDiv = document.createElement("div");
-            tempDiv.innerHTML = post.content_html;
-
-            // ✅ PRIMER PÁRRAFO REAL (RSS APP FRIENDLY)
-            const fullText = tempDiv.innerText || "";
-            const text = fullText
-                .split(/\n\s*\n/)
-                .shift()
-                .trim();
-
-            const imgTag = tempDiv.querySelector("img");
-            const imgSrc = imgTag ? imgTag.src : "";
-
-            const feedContainer = document.getElementById("feed");
-            feedContainer.classList.remove("visible");
-            feedContainer.classList.add("fade");
-
-            setTimeout(() => {
-                captionElement.innerText = text;
-                imgElement.src = imgSrc
-                    ? `https://images.weserv.nl/?url=${encodeURIComponent(imgSrc)}`
-                    : "";
-                feedContainer.classList.remove("fade");
-                feedContainer.classList.add("visible");
-            }, 800);
-
-            currentIndex = (currentIndex + 1) % posts.length;
-        }
-
-        cargarFeed();
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
